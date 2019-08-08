@@ -1,0 +1,53 @@
+been doing it all wrong:
+
+    have policy = f(b_n,b_n+1) where 0<f<1. policy is the probability that score increases in the future. where score for the time being is a hard coded function and not learned.
+
+
+
+    what if we define score = materiel(white) - material(black)
+                             _________________________________     ------------------------------->
+                               matieral(white) + material(black)
+
+    this score function insentivizes  trading for the leading player.
+
+    Algorithm(roughly):
+
+        1. run monte carlo guided by policy.
+        2. keep track of observed score increases. 
+        3. keep track of number of descendents evalutated for each position.
+        4. train policy on observed (#of score increases)/(#of descendents evaluated) once simulations are over. 
+
+
+        ideally score would be a learned function but not enough data. what if value = (1-e)*score e*v_hat. e intialized at 0
+
+        v_hat would be trained when enough data comes in then e can be slowly increaes from 0 to 1.
+
+
+
+    move selection in real game:
+
+        naive: just let the policy decide:
+
+        mcts: run tree search guided by policy. pick the move with the highest average score? or maybe higest number of visits?
+
+Tommorrow:
+
+    Add castling.
+
+    make simple engines as bench mark.
+
+    engine tries to maximize score over 1 move. takes random if it cannot.
+
+    try adding momentum measure as in momentum is higher is score contiually imporves on a given tree.
+
+
+Another idea:
+
+    use policy function from prvious iteration as value function for the next. and use policy from n-2 iteration as guide? or during training dont prune the search tree. 
+    value function should probably include monte carlo tree search.
+
+
+Problem:
+
+    can we actually improve from one iteration to the next. 
+
